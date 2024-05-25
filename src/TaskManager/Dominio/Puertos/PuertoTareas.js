@@ -1,7 +1,10 @@
+const { define } = require('implements');
 
-const PuertoTareas = {
-    ObtenerTareas : function () {},
-    CrearTareas : function (tarea) {},
-    ActualizarTareas : function (id, nombre, completado){},
-    EliminarTareas : function (id) {}
-}
+const PuertoTareas = define({
+    ObtenerTareas: 'function',
+    CrearTareas: 'function',
+    ActualizarTareas: 'function',
+    EliminarTareas: 'function'
+});
+
+module.exports = PuertoTareas;
