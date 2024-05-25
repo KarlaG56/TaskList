@@ -4,7 +4,7 @@ import { Text, View, StyleSheet} from 'react-native'
 const Screen = () => {
     return (
         <View>
-            <Text> textInComponent </Text>
+            <Text> </Text>
         </View>
     )
 }
