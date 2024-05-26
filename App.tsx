@@ -1,14 +1,14 @@
 
-
+// src/App.tsx
 import React from 'react';
-import Screen from './src/TaskManager/Infrestructura/Vistas/Screen';
+import { Provider } from 'react-redux';
+import store from './src/store';
+import MainScreen from './src/Vistas/MainScreen';
 
-function App(): React.JSX.Element {
-
-  return (
-    <Screen/>
-  );
-}
-
+const App = () => (
+    <Provider store={store}>
+        <MainScreen />
+    </Provider>
+);
 
 export default App;
