@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Alert, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Button, StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-const InputScreen = () => {
-  const [text, setText] = useState('');
+const InputScreen = ({ route, navigation, addTask, editTask }) => {
+  const [task, setTask] = useState({ id: null, name: '' });
 
-  const handleSubmit = () => {
-    Alert.alert('Datos ingresados', text);
+  useEffect(() => {
+    if (route.params?.task) {
+      setTask(route.params.task);
+    }
+  }, [route.params?.task]);
+
+  const handleSave = () => {
+    if (task.id) {
+      editTask(task.id, task);
+    } else {
+      addTask({ ...task, id: Date.now() });
+    }
+    navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Ingresa datos"
-        value={text}
-        onChangeText={setText}
+        placeholder="Agregar Actividad"
+        value={task.name}
+        onChangeText={(name) => setTask({ ...task, name })}
       />
-      <Button title="Enviar" onPress={handleSubmit} />
+      <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+        <Text style={styles.buttonText}>Guardar</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -26,6 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#f0f8ff', // Cambia el color de fondo aquí
   },
   input: {
     height: 40,
@@ -33,6 +47,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
     paddingHorizontal: 10,
+  },
+  saveButton: {
+    backgroundColor: 'blue',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#fff',
   },
 });
 
